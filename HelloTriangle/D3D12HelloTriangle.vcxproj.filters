@@ -63,8 +63,12 @@
     <ClCompile Include="nv_helpers_dx12\TopLevelASGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="shaders.hlsl">
+    <None Include="Common.hlsl" />
+    <None Include="Hit.hlsl" />
+    <None Include="Miss.hlsl" />
+    <None Include="RayGen.hlsl" />
+    <None Include="shaders.hlsl">
       <Filter>Assets\Shaders</Filter>
-    </CustomBuild>
+    </None>
   </ItemGroup>
 </Project>

@@ -16,6 +16,7 @@
 #include <dxcapi.h>
 #include <vector>
 #include "nv_helpers_dx12/TopLevelASGenerator.h"
+#include "nv_helpers_dx12/ShaderBindingTableGenerator.h"
 
 using namespace DirectX;
 
@@ -99,4 +100,31 @@ private:
 	AccelerationStructureBuffers CreateBottomLevelAS(std::vector<std::pair<ComPtr<ID3D12Resource>, uint32_t>>);
 	void CreateTopLevelAS(const std::vector<std::pair<ComPtr<ID3D12Resource>, DirectX::XMMATRIX>>& instances);
 
+	ComPtr<ID3D12RootSignature> CreateRayGenRootSignature();
+	ComPtr<ID3D12RootSignature> CreateHitRootSignature();
+	ComPtr<ID3D12RootSignature> CreateMissRootSignature();
+	
+	void CreateRaytracingPipeline();
+	
+	ComPtr<IDxcBlob> m_rayGenLibrary;
+	ComPtr<IDxcBlob> m_hitLibrary;
+	ComPtr<IDxcBlob> m_missLibrary;
+
+	ComPtr<ID3D12RootSignature> m_rayGenSignature;
+	ComPtr<ID3D12RootSignature> m_hitSignature;
+	ComPtr<ID3D12RootSignature> m_missSignature;
+	// Ray tracing pipeline state
+	ComPtr<ID3D12StateObject> m_rtStateObject;
+	// Ray tracing pipeline state properties, retaining the shader identifiers to use in the Shader Binding Table
+	ComPtr<ID3D12StateObjectProperties> m_rtStateObjectProps;
+
+	void CreateRaytracingOutputBuffer();
+	void CreateShaderResourceHeap();
+
+	ComPtr<ID3D12Resource> m_outputResource; // UAV that will be copied to renger target
+	ComPtr<ID3D12DescriptorHeap> m_srvUavHeap;
+
+	void CreateShaderBindingTable();
+	nv_helpers_dx12::ShaderBindingTableGenerator m_sbtHelper;
+	ComPtr<ID3D12Resource> m_sbtStorage;
 };
