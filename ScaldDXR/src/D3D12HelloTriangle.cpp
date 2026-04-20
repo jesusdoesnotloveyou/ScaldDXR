@@ -172,8 +172,8 @@ void D3D12HelloTriangle::LoadAssets()
         UINT compileFlags = 0;
 #endif
 
-        ThrowIfFailed(D3DCompileFromFile(GetAssetFullPath(L"shaders.hlsl").c_str(), nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader, nullptr));
-        ThrowIfFailed(D3DCompileFromFile(GetAssetFullPath(L"shaders.hlsl").c_str(), nullptr, nullptr, "PSMain", "ps_5_0", compileFlags, 0, &pixelShader, nullptr));
+        ThrowIfFailed(D3DCompileFromFile(GetAssetFullPath(L"assets/shaders/shaders.hlsl").c_str(), nullptr, nullptr, "VSMain", "vs_5_0", compileFlags, 0, &vertexShader, nullptr));
+        ThrowIfFailed(D3DCompileFromFile(GetAssetFullPath(L"assets/shaders/shaders.hlsl").c_str(), nullptr, nullptr, "PSMain", "ps_5_0", compileFlags, 0, &pixelShader, nullptr));
 
         // Define the vertex input layout.
         D3D12_INPUT_ELEMENT_DESC inputElementDescs[] =
@@ -595,9 +595,9 @@ void D3D12HelloTriangle::CreateRaytracingPipeline()
     // This section compiles the HLSL code into a set of DXIL libraries.
     // We chose to separate the code in several libraries by semantic (ray generation, hit, miss) for clarity.
     // Any code layout can be used.
-    m_rayGenLibrary = nv_helpers_dx12::CompileShaderLibrary(L"RayGen.hlsl");
-    m_missLibrary = nv_helpers_dx12::CompileShaderLibrary(L"Miss.hlsl");
-    m_hitLibrary = nv_helpers_dx12::CompileShaderLibrary(L"Hit.hlsl");
+    m_rayGenLibrary = nv_helpers_dx12::CompileShaderLibrary(L"./assets/shaders/RayGen.hlsl");
+    m_missLibrary = nv_helpers_dx12::CompileShaderLibrary(L"./assets/shaders/Miss.hlsl");
+    m_hitLibrary = nv_helpers_dx12::CompileShaderLibrary(L"./assets/shaders/Hit.hlsl");
 
     // In a way similar to DLLs, each library is associated with a number of exported symbols.
     // This has to be done explicitly in the lines below.

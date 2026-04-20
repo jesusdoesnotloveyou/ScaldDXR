@@ -36,10 +36,12 @@ inline void GetAssetsPath(_Out_writes_(pathSize) WCHAR* path, UINT pathSize)
 		throw std::exception();
 	}
 
-	WCHAR* lastSlash = wcsrchr(path, L'\\');
+	const wchar_t *projectFolder = L"ScaldDXR";
+    size_t projectFolderNameSize = wcslen(projectFolder);
+    WCHAR *lastSlash = wcsstr(path, projectFolder);
 	if (lastSlash)
 	{
-		*(lastSlash + 1) = L'\0';
+        *(lastSlash + projectFolderNameSize) = L'\0';
 	}
 }
 
